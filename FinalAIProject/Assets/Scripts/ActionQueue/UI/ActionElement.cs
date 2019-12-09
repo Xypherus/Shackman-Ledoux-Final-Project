@@ -22,7 +22,7 @@ public class ActionElement : MonoBehaviour
 
     public void updateElement()
     {
-        if(newAction)
+        if (newAction)
         {
             titleText.text = "New Step";
         }
@@ -34,14 +34,15 @@ public class ActionElement : MonoBehaviour
 
     public void saveElement()
     {
-        if(newAction)
+        if (newAction)
         {
             index = ActionQueue.instance.AddAction(waitTime, destPoint);
-            if(index == -1)
+            if (index == -1)
             {
                 Destroy(gameObject);
             }
             newAction = false;
+            transform.SetSiblingIndex(index);
         }
         else
         {
@@ -52,7 +53,7 @@ public class ActionElement : MonoBehaviour
 
     public void deleteElement()
     {
-        if(!newAction)
+        if (!newAction)
         {
             ActionQueue.instance.removeAction(index);
         }
@@ -66,13 +67,13 @@ public class ActionElement : MonoBehaviour
         input = gameObject.transform.GetChild(1).GetComponentInChildren<InputField>();
         newAction = true;
         updateElement();
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(input.text != "")
+        if (input.text != "")
         {
             waitTime = float.Parse(input.text);
         }
