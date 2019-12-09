@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : BaseEnemy
 {
+
+    float moveSpeed = 2.0f;
     protected override void BuildFSM()
     {
         //Other States Here

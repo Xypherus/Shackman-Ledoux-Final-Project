@@ -6,6 +6,12 @@ using System.Linq;
 public abstract class FSMState
 {
     protected FSMStateID stateID;
+
+    protected float speed = 2.0f;
+
+    protected float rotationSpeed = 2.0f;
+
+    protected Vector3 destination;
     public FSMStateID StateID { get { return stateID; } }
     //protected List<FSMStateID> transitionableStates = new List<FSMStateID>(); Depricated due to code update
     protected Dictionary<FSMTransitions, FSMStateID> transitions = new Dictionary<FSMTransitions, FSMStateID>();

@@ -5,18 +5,31 @@ using UnityEngine;
 public class PatrolState : FSMState
 {
     //basic movement until navmesh is added.
-    public List<Vector2> waypoints;
+    protected Transform[] waypoints;
+    int curWaypoint = 0;
     public PatrolState()
     {
         stateID = FSMStateID.Patrol;
 
-        
+        destination = waypoints[curWaypoint].position;
         
     }
 
     public override void Act(Transform player, GameObject self)
     {
-        
+        if(Vector2.Distance(self.transform.transform.position, destination) <= 0.5f)
+        {
+            curWaypoint += 1;
+            if (curWaypoint == waypoints.Length){
+                curWaypoint = 0;
+            }
+            destination = waypoints[curWaypoint].position;
+        }
+        // rotate sprite to look at next desination.
+        Quaternion targetRotation = Quaternion.LookRotation(destination - self.transform.position);
+        self.transform.rotation = Quaternion.Slerp(self.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        // this moves sprite towards new destination.
+        self.transform.Translate(Vector2.up *Time.deltaTime * speed);
     }
 
     public override void Reason(Transform player, GameObject self)
