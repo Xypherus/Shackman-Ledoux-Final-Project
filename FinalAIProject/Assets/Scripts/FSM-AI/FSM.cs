@@ -9,24 +9,21 @@ using PolyNav;
 public enum FSMStateID
 {
     none = 0,
-    Idle,
     Shoot,
     Dead,
-    Chase,
-    Passive,
     Patrol,
-    Retreat,
+    Investigate,
 }
 
 public enum FSMTransitions
 {
     none = 0,
     SawPlayer,
+    FoundNothing,
     PlayerOutOfRange,
-    OutOfHealth,
-    Awoken,
     PlayerTooClose,
     CloserDistanceReached,
+    HeardPlayer,
 }
 
 public abstract class FSM : MonoBehaviour
