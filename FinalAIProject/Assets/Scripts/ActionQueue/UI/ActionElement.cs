@@ -14,10 +14,13 @@ public class ActionElement : MonoBehaviour
     private float waitTime;
     private Vector3 destPoint = new Vector3();
     private bool newAction;
+    private MousePointManager mousePointManager;
 
-    public void setDestPoint()
+    public void setDestPoint(Vector3 point)
     {
-
+        destPoint = point;
+        Debug.Log("destPoint set to" + destPoint);
+        //code to edit button text
     }
 
     public void updateElement()
@@ -30,6 +33,12 @@ public class ActionElement : MonoBehaviour
         {
             titleText.text = "Step " + (index + 1);
         }
+    }
+
+    public void StartPointPolling()
+    {
+        mousePointManager.StartMouseSample(this);
+        Debug.Log("Starting Point Polling...");
     }
 
     public void saveElement()
@@ -66,6 +75,7 @@ public class ActionElement : MonoBehaviour
         titleText = gameObject.transform.GetChild(0).GetComponentInChildren<Text>();
         input = gameObject.transform.GetChild(1).GetComponentInChildren<InputField>();
         newAction = true;
+        mousePointManager = GameObject.Find("InputManager").GetComponent<MousePointManager>();
         updateElement();
 
     }

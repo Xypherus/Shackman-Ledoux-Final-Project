@@ -700,7 +700,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8378438863537205100}
-        m_MethodName: setDestPoint
+        m_MethodName: StartPointPolling
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
