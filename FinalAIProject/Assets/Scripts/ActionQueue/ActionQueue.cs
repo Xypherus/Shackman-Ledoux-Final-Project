@@ -63,6 +63,19 @@ public class ActionQueue : MonoBehaviour
         return true;
     }
 
+    public Action GetAction(int index)
+    {
+        if(index >= 0 && index < actions.Count)
+        {
+            return actions[index];
+        }
+        else
+        {
+            Debug.LogError("Given index is not within the action list");
+            return null;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

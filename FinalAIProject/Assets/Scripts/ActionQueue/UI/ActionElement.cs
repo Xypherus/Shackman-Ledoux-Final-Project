@@ -32,6 +32,7 @@ public class ActionElement : MonoBehaviour
         else
         {
             titleText.text = "Step " + (index + 1);
+            input.text = string.Format("{0:0.##}", ActionQueue.instance.GetAction(index).waitTime);
         }
     }
 
