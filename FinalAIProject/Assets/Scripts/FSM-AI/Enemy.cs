@@ -23,6 +23,11 @@ public class Enemy : BaseEnemy
         agent = gameObject.GetComponent<PolyNavAgent>();
     }
 
+    protected override void FSMFixedUpdate()
+    {
+        transform.eulerAngles = new Vector3(0,0, transform.eulerAngles.z);
+    }
+
     protected override void BuildFSM()
     {
         //Other States Here

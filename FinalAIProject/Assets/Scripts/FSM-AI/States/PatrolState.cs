@@ -31,13 +31,10 @@ public class PatrolState : FSMState
 
     public override void Reason(Transform player, GameObject self)
     {
-        if(Vector2.Distance(self.transform.position, player.transform.position) <= 5.0f)
-        {
-            self.GetComponent<BaseEnemy>().SetTransition(FSMTransitions.HeardPlayer); // transitions to Investigate.
-        }
+        //Debug.Log("In Patrol Reason");
         if (enemyController.seePlayer == true)
         {
-            self.GetComponent<BaseEnemy>().SetTransition(FSMTransitions.SawPlayer); //if seen, move to shoot.
+            self.GetComponent<BaseEnemy>().SetTransition(FSMTransitions.SawPlayer); //if seen, move to shoot.S
         }
     }
 
@@ -48,6 +45,6 @@ public class PatrolState : FSMState
 
     public override void OnStateExit(Transform player, GameObject self)
     {
-
+        enemyController.agent.Stop();
     }
 }

@@ -6,7 +6,7 @@ public class Sight : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public bool playerInSight;
+    //public bool playerInSight;
     public Vector2 lastSeen;
 
     private GameObject player;
@@ -24,11 +24,14 @@ public class Sight : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
+        Debug.Log("On Trigger Enter");
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("In Compare Tag");
             RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position);
             if(hit.collider.tag == "Player")
             {
+                Debug.Log("In Raycast Check");
                 GetComponentInParent<Enemy>().seePlayer = true;
             }
         }
