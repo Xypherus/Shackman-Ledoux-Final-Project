@@ -7,10 +7,6 @@ public abstract class FSMState
 {
     protected FSMStateID stateID;
 
-    protected Transform[] waypoints;
-
-    protected int curWaypoint = 0;
-
     protected float speed = 2.0f;
 
     protected float rotationSpeed = 2.0f;

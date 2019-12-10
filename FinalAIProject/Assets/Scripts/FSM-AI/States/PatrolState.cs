@@ -4,30 +4,29 @@ using UnityEngine;
 
 public class PatrolState : FSMState
 {
+
+
+    private Enemy enemyController;
     //basic movement until navmesh is added.
-    public PatrolState()
+    public PatrolState(Enemy enemy)
     {
         stateID = FSMStateID.Patrol;
 
-        destination = waypoints[curWaypoint].position;
-        
+        enemyController = enemy;
     }
 
     public override void Act(Transform player, GameObject self)
     {
-        if(Vector2.Distance(self.transform.position, destination) <= 0.5f)
+        
+        if (enemyController.agent.remainingDistance <= 0.1f)
         {
-            curWaypoint += 1;
-            if (curWaypoint == waypoints.Length){
-                curWaypoint = 0;
+            enemyController.curWaypoint += 1;
+            if (enemyController.curWaypoint == enemyController.waypoints.Length)
+            {
+                enemyController.curWaypoint = 0;
             }
-            destination = waypoints[curWaypoint].position;
+            enemyController.agent.SetDestination(enemyController.waypoints[enemyController.curWaypoint].position);
         }
-        // rotate sprite to look at next desination.
-        Quaternion targetRotation = Quaternion.LookRotation(destination - self.transform.position);
-        self.transform.rotation = Quaternion.Slerp(self.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-        // this moves sprite towards new destination.
-        self.transform.Translate(Vector2.up *Time.deltaTime * speed);
     }
 
     public override void Reason(Transform player, GameObject self)
@@ -40,7 +39,7 @@ public class PatrolState : FSMState
 
     public override void OnStateEnter(Transform player, GameObject self)
     {
-        
+        enemyController.agent.SetDestination(enemyController.waypoints[enemyController.curWaypoint].position);
     }
 
     public override void OnStateExit(Transform player, GameObject self)

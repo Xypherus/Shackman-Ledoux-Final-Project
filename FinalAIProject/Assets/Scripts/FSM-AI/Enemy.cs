@@ -1,20 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PolyNav;
 
 public class Enemy : BaseEnemy
 {
 
-    float moveSpeed = 2.0f;
+    public Transform[] waypoints;
+
+    public PolyNavAgent agent { get; private set; }
+
+    public int curWaypoint = 0;
+
+    protected override void Initalize()
+    {
+        //currentHealth = initalHealth;
+
+        BuildFSM();
+
+        agent = gameObject.GetComponent<PolyNavAgent>();
+    }
+
     protected override void BuildFSM()
     {
         //Other States Here
 
-        DeadState dead = new DeadState();
-
-        AddFSMState(dead);
-
-        PatrolState patrol = new PatrolState();
+        PatrolState patrol = new PatrolState(this);
         patrol.AddTransitionState(FSMStateID.Investigate, FSMTransitions.HeardPlayer);
         patrol.AddTransitionState(FSMStateID.Shoot, FSMTransitions.SawPlayer);
         AddFSMState(patrol);
@@ -27,5 +38,9 @@ public class Enemy : BaseEnemy
         ShootState shoot = new ShootState();
         shoot.AddTransitionState(FSMStateID.Investigate, FSMTransitions.PlayerOutOfRange);
         AddFSMState(shoot);
+
+        DeadState dead = new DeadState();
+
+        AddFSMState(dead);
     }
 }
