@@ -5,6 +5,11 @@ using UnityEngine;
 public class Sight : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public bool playerInSight;
+    public Vector2 lastSeen;
+
+
     void Start()
     {
         
