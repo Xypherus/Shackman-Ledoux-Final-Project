@@ -15,6 +15,7 @@ public enum FSMStateID
     Investigate,
 
     //Player States
+    PlayerInactive,
     PlayerWait,
     PlayerMove,
     PlayerDecide,
@@ -32,6 +33,7 @@ public enum FSMTransitions
     HeardPlayer,
 
     //Player Transitions
+    PlayerActivated,
     PlayerDoneMoving,
     PlayerDoneWaiting,
     PlayerMoreStepsFound,
@@ -140,7 +142,7 @@ public abstract class FSM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Active = false;
+        Active = true;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         navAgent = gameObject.GetComponent<PolyNavAgent>();
         Initalize();

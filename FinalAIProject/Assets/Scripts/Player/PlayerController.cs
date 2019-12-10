@@ -6,12 +6,15 @@ using PolyNav;
 [RequireComponent(typeof(PolyNavAgent))]
 public class PlayerController : FSM
 {
-    [SerializeField]
-    private int currentStep;
+    //Visable only for debug
+    public int currentStep;
     [SerializeField]
     private bool isVisable;
     public Action currentAction { get; private set; }
     public PolyNavAgent agent { get; private set; }
+
+    //Player Activator
+    public bool playerActive;
 
     public void setVisability(bool visable)
     {
@@ -39,13 +42,18 @@ public class PlayerController : FSM
 
     protected override void Initalize()
     {
-        currentStep = 0;
+        currentStep = -1;
         isCurrentlyWaiting = false;
+        playerActive = false;
         agent = gameObject.GetComponent<PolyNavAgent>();
 
         BuildFSM();
     }
 
+    /// <summary>
+    /// Sets the next movement step active
+    /// </summary>
+    /// <returns>True if there are further steps to be taken, false if the final step has been reached</returns>
     public bool setNextStep()
     {
         currentStep += 1;
@@ -61,7 +69,26 @@ public class PlayerController : FSM
 
     protected virtual void BuildFSM()
     {
-        //States here
+        PlayerInactiveState inactive = new PlayerInactiveState(this);
+        inactive.AddTransitionState(FSMStateID.PlayerWait, FSMTransitions.PlayerActivated);
+
+        PlayerWaitState wait = new PlayerWaitState(this);
+        wait.AddTransitionState(FSMStateID.PlayerMove, FSMTransitions.PlayerDoneWaiting);
+
+        PlayerMoveState move = new PlayerMoveState(this);
+        move.AddTransitionState(FSMStateID.PlayerDecide, FSMTransitions.PlayerDoneMoving);
+
+        PlayerDecideState decide = new PlayerDecideState(this);
+        decide.AddTransitionState(FSMStateID.PlayerWait, FSMTransitions.PlayerMoreStepsFound);
+        decide.AddTransitionState(FSMStateID.PlayerComplete, FSMTransitions.PlayerNoStepsFound);
+
+        PlayerCompleteState complete = new PlayerCompleteState();
+
+        AddFSMState(inactive);
+        AddFSMState(wait);
+        AddFSMState(move);
+        AddFSMState(decide);
+        AddFSMState(complete);
     }
 
     #region Delay Scripts
