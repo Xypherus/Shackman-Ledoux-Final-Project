@@ -25,6 +25,11 @@ public class ActionQueue : MonoBehaviour
     }
     #endregion
 
+    public int getNumActions()
+    {
+        return actions.Count;
+    }
+
     public int AddAction(float waitTime, Vector3 position)
     {
         if (actions.Count >= totalAvalableActions)

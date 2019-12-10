@@ -24,4 +24,9 @@ public class CameraControl : MonoBehaviour
             gameObject.GetComponent<Camera>().orthographicSize = cameraZoom;
         }
     }
+
+    private void Start()
+    {
+        //Time.timeScale = 0;
+    }
 }

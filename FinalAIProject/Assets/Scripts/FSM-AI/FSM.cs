@@ -13,6 +13,12 @@ public enum FSMStateID
     Dead,
     Patrol,
     Investigate,
+
+    //Player States
+    PlayerWait,
+    PlayerMove,
+    PlayerDecide,
+    PlayerComplete,
 }
 
 public enum FSMTransitions
@@ -24,6 +30,12 @@ public enum FSMTransitions
     PlayerTooClose,
     CloserDistanceReached,
     HeardPlayer,
+
+    //Player Transitions
+    PlayerDoneMoving,
+    PlayerDoneWaiting,
+    PlayerMoreStepsFound,
+    PlayerNoStepsFound,
 }
 
 public abstract class FSM : MonoBehaviour
