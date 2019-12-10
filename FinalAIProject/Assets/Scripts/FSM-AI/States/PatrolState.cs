@@ -35,6 +35,10 @@ public class PatrolState : FSMState
         {
             self.GetComponent<BaseEnemy>().SetTransition(FSMTransitions.HeardPlayer); // transitions to Investigate.
         }
+        if (enemyController.seePlayer == true)
+        {
+            self.GetComponent<BaseEnemy>().SetTransition(FSMTransitions.SawPlayer); //if seen, move to shoot.
+        }
     }
 
     public override void OnStateEnter(Transform player, GameObject self)

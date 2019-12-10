@@ -8,6 +8,8 @@ public class Enemy : BaseEnemy
 
     public Transform[] waypoints;
 
+    public bool seePlayer = false;
+
     public PolyNavAgent agent { get; private set; }
 
     public int curWaypoint = 0;
