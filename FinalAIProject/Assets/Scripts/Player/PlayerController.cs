@@ -13,6 +13,12 @@ public class PlayerController : FSM
     public Action currentAction { get; private set; }
     public PolyNavAgent agent { get; private set; }
 
+    //Damage Stuff
+    public int shotsTaken { get; private set; }
+    [SerializeField]
+    private int maxShotsTaken = 1;
+    public bool dead { get; private set; }
+
     //Player Activator
     public bool playerActive;
 
@@ -27,6 +33,15 @@ public class PlayerController : FSM
         {
             isVisable = false;
             //Color change code
+        }
+    }
+
+    public void TakeShot()
+    {
+        shotsTaken += 1;
+        if(shotsTaken >= maxShotsTaken)
+        {
+            dead = true;
         }
     }
 
