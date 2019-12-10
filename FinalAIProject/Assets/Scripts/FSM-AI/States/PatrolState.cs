@@ -5,8 +5,6 @@ using UnityEngine;
 public class PatrolState : FSMState
 {
     //basic movement until navmesh is added.
-    protected Transform[] waypoints;
-    int curWaypoint = 0;
     public PatrolState()
     {
         stateID = FSMStateID.Patrol;
@@ -17,7 +15,7 @@ public class PatrolState : FSMState
 
     public override void Act(Transform player, GameObject self)
     {
-        if(Vector2.Distance(self.transform.transform.position, destination) <= 0.5f)
+        if(Vector2.Distance(self.transform.position, destination) <= 0.5f)
         {
             curWaypoint += 1;
             if (curWaypoint == waypoints.Length){
@@ -34,7 +32,10 @@ public class PatrolState : FSMState
 
     public override void Reason(Transform player, GameObject self)
     {
-        
+        if(Vector2.Distance(self.transform.position, player.transform.position) <= 5.0f)
+        {
+            self.GetComponent<BaseEnemy>().SetTransition(FSMTransitions.HeardPlayer); // transitions to Investigate.
+        }
     }
 
     public override void OnStateEnter(Transform player, GameObject self)

@@ -11,12 +11,18 @@ public class InvestigateState : FSMState
 
     public override void Act(Transform player, GameObject self)
     {
-        //Destroy(self, 1f);
+         Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - self.transform.position);
+        self.transform.rotation = Quaternion.Slerp(self.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        // this moves sprite towards the player.
+        self.transform.Translate(Vector2.up *Time.deltaTime * speed);
     }
 
     public override void Reason(Transform player, GameObject self)
     {
-        //Can Never Leave DeadState - No Transitions
+        if(Vector2.Distance(player.transform.position, self.transform.position) >= 5.0f)
+        {
+            self.GetComponent<BaseEnemy>().SetTransition(FSMTransitions.FoundNothing);
+        }
     }
 
     public override void OnStateEnter(Transform player, GameObject self)
