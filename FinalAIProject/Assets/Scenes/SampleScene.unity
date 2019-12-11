@@ -1757,6 +1757,7 @@ MonoBehaviour:
   Active: 0
   currentStep: 0
   isVisable: 0
+  maxShotsTaken: 1
   playerActive: 0
   isCurrentlyWaiting: 0
 --- !u!58 &681273925
@@ -3000,7 +3001,7 @@ GameObject:
   - component: {fileID: 1396160536}
   - component: {fileID: 1396160538}
   - component: {fileID: 1396160537}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VisionCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3203,7 +3204,7 @@ GameObject:
   - component: {fileID: 1424538163}
   - component: {fileID: 1424538165}
   - component: {fileID: 1424538166}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Akari_token
   m_TagString: Untagged
   m_Icon: {fileID: 0}

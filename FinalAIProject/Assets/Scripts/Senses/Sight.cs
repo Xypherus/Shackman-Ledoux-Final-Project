@@ -28,8 +28,8 @@ public class Sight : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.Log("In Compare Tag");
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position);
-            if(hit.collider.tag == "Player")
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position);
+            if(hit.collider.CompareTag("Player"))
             {
                 Debug.Log("In Raycast Check");
                 GetComponentInParent<Enemy>().seePlayer = true;
