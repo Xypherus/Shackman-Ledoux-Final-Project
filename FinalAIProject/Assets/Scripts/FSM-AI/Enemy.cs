@@ -10,6 +10,8 @@ public class Enemy : BaseEnemy
 
     public bool seePlayer = false;
 
+    public Vector2 lastSeen;
+
     public PolyNavAgent agent { get; private set; }
 
     public int curWaypoint = 0;

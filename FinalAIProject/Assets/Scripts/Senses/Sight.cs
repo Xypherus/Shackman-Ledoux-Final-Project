@@ -7,7 +7,6 @@ public class Sight : MonoBehaviour
     // Start is called before the first frame update
 
     //public bool playerInSight;
-    public Vector2 lastSeen;
 
     private GameObject player;
 
@@ -33,6 +32,11 @@ public class Sight : MonoBehaviour
             {
                 Debug.Log("In Raycast Check");
                 GetComponentInParent<Enemy>().seePlayer = true;
+            }
+            else
+            {
+                GetComponentInParent<Enemy>().lastSeen = player.transform.position;
+                GetComponentInParent<Enemy>().seePlayer = false;
             }
         }
     }
