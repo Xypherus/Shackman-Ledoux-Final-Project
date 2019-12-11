@@ -9,7 +9,7 @@ public class PlayerController : FSM
     //Visable only for debug
     public int currentStep;
     [SerializeField]
-    private bool isVisable;
+    public bool isVisable;
     public Action currentAction { get; private set; }
     public PolyNavAgent agent { get; private set; }
 
