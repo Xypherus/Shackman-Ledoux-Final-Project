@@ -15,6 +15,8 @@ public class PlayerController : FSM
     private SpriteRenderer playerRenderer;
     public float invisAlpha = .4f;
 
+    public bool makingNoise = false;
+
     //Damage Stuff
     public int shotsTaken { get; private set; }
     [SerializeField]
