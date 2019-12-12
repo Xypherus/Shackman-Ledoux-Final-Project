@@ -30,10 +30,29 @@ public class ElementDisplay : MonoBehaviour
         }
     }
 
-    public void AddActionElement()
+    public void AddActionElementNoReturn()
     {
+        AddActionElement();
+    }
+
+    public ActionElement AddActionElement()
+    {
+        Debug.Log("AddActionElement Ran");
         var prefabTemp = Instantiate(actionElementPrefab);
         prefabTemp.transform.SetParent(scroll.content.transform);
+
+        return prefabTemp.GetComponent<ActionElement>();
+    }
+
+    public void RebuildList()
+    {
+        //clearList();
+
+        for(int i = 0; i < ActionQueue.instance.getNumActions(); i++)
+        {
+            var tmpElement = AddActionElement();
+            tmpElement.RebuildElement(i, ActionQueue.instance.GetAction(i));
+        }
     }
 
     // Start is called before the first frame update

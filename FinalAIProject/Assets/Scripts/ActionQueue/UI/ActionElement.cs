@@ -10,11 +10,12 @@ public class ActionElement : MonoBehaviour
     private Text titleText;
     private InputField input;
 
-    [SerializeField]
+    //[SerializeField]
     private float waitTime;
     private Vector3 destPoint = new Vector3();
     private bool newAction;
     private MousePointManager mousePointManager;
+    private bool isRebuild;
 
     //Destination Point Display
     private GameObject destPointDisplay;
@@ -24,8 +25,8 @@ public class ActionElement : MonoBehaviour
     {
         destPoint = point;
         Debug.Log("destPoint set to" + destPoint);
-        
-        if(!destPointDisplay)
+
+        if (!destPointDisplay)
         {
             destPointDisplay = Instantiate(destPointPrefab, point, Quaternion.identity);
         }
@@ -43,6 +44,24 @@ public class ActionElement : MonoBehaviour
             titleText.text = "Step " + (index + 1);
             input.text = string.Format("{0:0.##}", ActionQueue.instance.GetAction(index).waitTime);
         }
+    }
+
+    public void RebuildElement(int newIndex, Action action)
+    {
+        titleText = gameObject.transform.GetChild(0).GetComponentInChildren<Text>();
+        input = gameObject.transform.GetChild(1).GetComponentInChildren<InputField>();
+        mousePointManager = GameObject.Find("InputManager").GetComponent<MousePointManager>();
+        Debug.Log("Rebuilding Element " + index);
+
+        index = newIndex;
+        waitTime = action.waitTime;
+        destPoint = action.destinationPoint;
+        newAction = false;
+        isRebuild = true;
+
+        setDestPoint(destPoint);
+        transform.SetSiblingIndex(index);
+        updateElement();
     }
 
     public void StartPointPolling()
@@ -82,12 +101,17 @@ public class ActionElement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        titleText = gameObject.transform.GetChild(0).GetComponentInChildren<Text>();
-        input = gameObject.transform.GetChild(1).GetComponentInChildren<InputField>();
-        newAction = true;
-        mousePointManager = GameObject.Find("InputManager").GetComponent<MousePointManager>();
-        updateElement();
+        Debug.Log("Element Start Function Ran");
 
+        if (!isRebuild)
+        {
+            titleText = gameObject.transform.GetChild(0).GetComponentInChildren<Text>();
+            input = gameObject.transform.GetChild(1).GetComponentInChildren<InputField>();
+            newAction = true;
+            mousePointManager = GameObject.Find("InputManager").GetComponent<MousePointManager>();
+            //updateElement();
+            titleText.text = "New Step";
+        }
     }
 
     // Update is called once per frame

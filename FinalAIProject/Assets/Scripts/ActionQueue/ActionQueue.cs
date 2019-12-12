@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ActionQueue : MonoBehaviour
 {
@@ -28,6 +29,27 @@ public class ActionQueue : MonoBehaviour
     public int getNumActions()
     {
         return actions.Count;
+    }
+
+    public void ResetLevelState()
+    {
+        Vector3 camPos = Camera.main.transform.position;
+        float camZoom = Camera.main.orthographicSize;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        StartCoroutine(DelayRebuild(camPos, camZoom));
+    }
+
+    IEnumerator DelayRebuild(Vector3 pos, float zoom)
+    {
+        yield return new WaitForSecondsRealtime(.1f);
+        ElementDisplay display = GameObject.Find("ActionDisplay").GetComponent<ElementDisplay>();
+
+        Camera.main.transform.position = pos;
+        Camera.main.orthographicSize = zoom;
+
+        display.RebuildList();
     }
 
     public int AddAction(float waitTime, Vector3 position)
