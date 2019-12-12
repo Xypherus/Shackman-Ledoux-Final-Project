@@ -29,7 +29,7 @@ public class Enemy : BaseEnemy
 
     protected override void FSMFixedUpdate()
     {
-        transform.eulerAngles = new Vector3(0,0, transform.eulerAngles.z);
+        
     }
 
     protected override void BuildFSM()
@@ -41,7 +41,7 @@ public class Enemy : BaseEnemy
         patrol.AddTransitionState(FSMStateID.Shoot, FSMTransitions.SawPlayer);
         AddFSMState(patrol);
 
-        InvestigateState investigate = new InvestigateState();
+        InvestigateState investigate = new InvestigateState(this);
         investigate.AddTransitionState(FSMStateID.Patrol, FSMTransitions.FoundNothing);
         investigate.AddTransitionState(FSMStateID.Shoot, FSMTransitions.SawPlayer);
         AddFSMState(investigate);

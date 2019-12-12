@@ -17,7 +17,7 @@ public class PatrolState : FSMState
 
     public override void Act(Transform player, GameObject self)
     {
-        
+        self.transform.eulerAngles = new Vector3(0, 0, self.transform.eulerAngles.z);
         if (enemyController.agent.remainingDistance <= 0.1f)
         {
             enemyController.curWaypoint += 1;

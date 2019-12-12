@@ -17,6 +17,7 @@ public class ShootState : FSMState
 
     public override void Act(Transform player, GameObject self)
     {
+        self.transform.eulerAngles = new Vector3(0,0, player.transform.position.z - self.transform.position.z);
         timer += Time.deltaTime;
         if (timer >= killTime)
         {
@@ -24,7 +25,7 @@ public class ShootState : FSMState
         }
         if(self.GetComponent<Enemy>().seePlayer == false)
         {
-            
+            self.GetComponent<Enemy>().playernoiseLocation = player.position;
         }
     }
 
