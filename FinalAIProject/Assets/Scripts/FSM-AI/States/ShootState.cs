@@ -39,12 +39,12 @@ public class ShootState : FSMState
     public override void OnStateEnter(Transform player, GameObject self)
     {
         getPlayer = GameObject.FindGameObjectWithTag("Player");
-        killTime += killTimeIncrement;
+        killTime = timer + killTimeIncrement;
     }
 
     public override void OnStateExit(Transform player, GameObject self)
     {
-        killTime = 1000.0f;
+        timer = 0.0f;
     }
 
     
