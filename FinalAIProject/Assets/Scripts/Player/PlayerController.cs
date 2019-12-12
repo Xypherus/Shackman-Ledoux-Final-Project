@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PolyNav;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PolyNavAgent))]
 public class PlayerController : FSM
@@ -25,6 +26,9 @@ public class PlayerController : FSM
 
     //Player Activator
     public bool playerActive;
+
+    //Display Stuff
+    public Text displayText;
 
     public void setVisability(bool visable)
     {
@@ -51,6 +55,7 @@ public class PlayerController : FSM
         {
             dead = true;
             Debug.Log("Player Is Dead");
+            SetTransition(FSMTransitions.PlayerDied);
         }
     }
 
@@ -72,6 +77,8 @@ public class PlayerController : FSM
         agent = gameObject.GetComponent<PolyNavAgent>();
         playerRenderer = gameObject.GetComponent<SpriteRenderer>();
         invisAlpha = Mathf.Clamp(invisAlpha, 0f, 1f);
+
+        displayText.text = "";
 
         BuildFSM();
     }
@@ -100,21 +107,28 @@ public class PlayerController : FSM
 
         PlayerWaitState wait = new PlayerWaitState(this);
         wait.AddTransitionState(FSMStateID.PlayerMove, FSMTransitions.PlayerDoneWaiting);
+        wait.AddTransitionState(FSMStateID.PlayerDead, FSMTransitions.PlayerDied);
 
         PlayerMoveState move = new PlayerMoveState(this);
         move.AddTransitionState(FSMStateID.PlayerDecide, FSMTransitions.PlayerDoneMoving);
+        move.AddTransitionState(FSMStateID.PlayerDead, FSMTransitions.PlayerDied);
 
         PlayerDecideState decide = new PlayerDecideState(this);
         decide.AddTransitionState(FSMStateID.PlayerWait, FSMTransitions.PlayerMoreStepsFound);
         decide.AddTransitionState(FSMStateID.PlayerComplete, FSMTransitions.PlayerNoStepsFound);
+        decide.AddTransitionState(FSMStateID.PlayerDead, FSMTransitions.PlayerDied);
+
+        PlayerDeadState dead = new PlayerDeadState(displayText);
 
         PlayerCompleteState complete = new PlayerCompleteState();
+        complete.AddTransitionState(FSMStateID.PlayerDead, FSMTransitions.PlayerDied);
 
         AddFSMState(inactive);
         AddFSMState(wait);
         AddFSMState(move);
         AddFSMState(decide);
         AddFSMState(complete);
+        AddFSMState(dead);
     }
 
     #region Delay Scripts

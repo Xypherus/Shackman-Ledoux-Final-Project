@@ -20,6 +20,7 @@ public enum FSMStateID
     PlayerMove,
     PlayerDecide,
     PlayerComplete,
+    PlayerDead,
 }
 
 public enum FSMTransitions
@@ -38,6 +39,7 @@ public enum FSMTransitions
     PlayerDoneWaiting,
     PlayerMoreStepsFound,
     PlayerNoStepsFound,
+    PlayerDied,
 }
 
 public abstract class FSM : MonoBehaviour
