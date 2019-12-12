@@ -10,7 +10,9 @@ public class Enemy : BaseEnemy
 
     public bool seePlayer = false;
 
-    public Vector2 lastSeen;
+    public bool heardPlayer = false;
+
+    public Vector2 playernoiseLocation;
 
     public PolyNavAgent agent { get; private set; }
 

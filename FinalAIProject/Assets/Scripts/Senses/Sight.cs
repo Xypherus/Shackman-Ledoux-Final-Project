@@ -35,7 +35,7 @@ public class Sight : MonoBehaviour
             }
             else
             {
-                GetComponentInParent<Enemy>().lastSeen = player.transform.position;
+                GetComponentInParent<Enemy>().playernoiseLocation = player.transform.position;
                 GetComponentInParent<Enemy>().seePlayer = false;
             }
         }

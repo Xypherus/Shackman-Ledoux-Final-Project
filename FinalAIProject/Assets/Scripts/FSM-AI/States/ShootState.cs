@@ -8,7 +8,7 @@ public class ShootState : FSMState
     protected float timer = 0.0f;
 
     public float killTimeIncrement = 1.5f;
-    protected float killTime = 1000.0f;
+    protected float killTime;
     private GameObject getPlayer;
     public ShootState()
     {
