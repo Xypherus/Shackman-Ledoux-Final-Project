@@ -1137,6 +1137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   waitTime: 0
+  destPointPrefab: {fileID: 3066836884652852508, guid: ea28f889c15897e42a670ccd535a2d71,
+    type: 3}
 --- !u!1 &8378438863715974006
 GameObject:
   m_ObjectHideFlags: 0

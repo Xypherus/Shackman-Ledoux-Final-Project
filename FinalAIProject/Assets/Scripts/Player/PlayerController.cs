@@ -12,6 +12,8 @@ public class PlayerController : FSM
     public bool isVisable;
     public Action currentAction { get; private set; }
     public PolyNavAgent agent { get; private set; }
+    private SpriteRenderer playerRenderer;
+    public float invisAlpha = .4f;
 
     //Damage Stuff
     public int shotsTaken { get; private set; }
@@ -24,16 +26,19 @@ public class PlayerController : FSM
 
     public void setVisability(bool visable)
     {
+        Color tmp = playerRenderer.color;
         if (visable)
         {
             isVisable = true;
-            //Color change code
+            tmp.a = 1f;
         }
         else
         {
             isVisable = false;
-            //Color change code
+            tmp.a = invisAlpha;
+            Debug.Log("Setting alpha to invisable");
         }
+        playerRenderer.color = tmp;
     }
 
     public void TakeShot()
@@ -61,6 +66,8 @@ public class PlayerController : FSM
         isCurrentlyWaiting = false;
         playerActive = false;
         agent = gameObject.GetComponent<PolyNavAgent>();
+        playerRenderer = gameObject.GetComponent<SpriteRenderer>();
+        invisAlpha = Mathf.Clamp(invisAlpha, 0f, 1f);
 
         BuildFSM();
     }

@@ -16,11 +16,20 @@ public class ActionElement : MonoBehaviour
     private bool newAction;
     private MousePointManager mousePointManager;
 
+    //Destination Point Display
+    private GameObject destPointDisplay;
+    public GameObject destPointPrefab;
+
     public void setDestPoint(Vector3 point)
     {
         destPoint = point;
         Debug.Log("destPoint set to" + destPoint);
-        //code to edit button text
+        
+        if(!destPointDisplay)
+        {
+            destPointDisplay = Instantiate(destPointPrefab, point, Quaternion.identity);
+        }
+        destPointDisplay.transform.position = point;
     }
 
     public void updateElement()
