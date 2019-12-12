@@ -40,11 +40,14 @@ public class ShootState : FSMState
     {
         getPlayer = GameObject.FindGameObjectWithTag("Player");
         killTime = timer + killTimeIncrement;
+
+        player.gameObject.GetComponentInChildren<Animator>().SetBool("IsGettingShot", true);
     }
 
     public override void OnStateExit(Transform player, GameObject self)
     {
         timer = 0.0f;
+        player.gameObject.GetComponentInChildren<Animator>().SetBool("IsGettingShot", false);
     }
 
     

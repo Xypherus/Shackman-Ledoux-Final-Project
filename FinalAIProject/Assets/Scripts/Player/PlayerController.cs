@@ -46,9 +46,11 @@ public class PlayerController : FSM
     public void TakeShot()
     {
         shotsTaken += 1;
+        Debug.Log("Shot Taken");
         if(shotsTaken >= maxShotsTaken)
         {
             dead = true;
+            Debug.Log("Player Is Dead");
         }
     }
 
