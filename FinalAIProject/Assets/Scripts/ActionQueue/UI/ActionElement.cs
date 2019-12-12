@@ -95,6 +95,7 @@ public class ActionElement : MonoBehaviour
         {
             ActionQueue.instance.removeAction(index);
         }
+        Destroy(destPointDisplay);
         Destroy(gameObject);
     }
 
