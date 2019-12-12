@@ -17,13 +17,17 @@ public class ShootState : FSMState
 
     public override void Act(Transform player, GameObject self)
     {
-        self.transform.eulerAngles = new Vector3(0,0, player.transform.position.z - self.transform.position.z);
+        //self.transform.eulerAngles = new Vector3(0,0, player.transform.position.z - self.transform.position.z);
+        Vector3 dir = player.position - self.transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        self.transform.rotation = Quaternion.AngleAxis(angle-90, Vector3.forward);
+
         timer += Time.deltaTime;
         if (timer >= killTime)
         {
             getPlayer.GetComponent<PlayerController>().TakeShot();
         }
-        if(self.GetComponent<Enemy>().seePlayer == false)
+        if (self.GetComponent<Enemy>().seePlayer == false)
         {
             self.GetComponent<Enemy>().playernoiseLocation = player.position;
         }
@@ -51,5 +55,5 @@ public class ShootState : FSMState
         player.gameObject.GetComponentInChildren<Animator>().SetBool("IsGettingShot", false);
     }
 
-    
+
 }
