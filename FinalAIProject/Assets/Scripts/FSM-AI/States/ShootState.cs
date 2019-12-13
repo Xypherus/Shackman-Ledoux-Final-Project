@@ -52,6 +52,7 @@ public class ShootState : FSMState
     public override void OnStateExit(Transform player, GameObject self)
     {
         timer = 0.0f;
+        self.GetComponent<Enemy>().playernoiseLocation = player.transform.position;
         player.gameObject.GetComponentInChildren<Animator>().SetBool("IsGettingShot", false);
     }
 
